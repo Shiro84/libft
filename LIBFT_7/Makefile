@@ -48,6 +48,19 @@ SRCS_MAND = ft_memset.c		\
 				ft_striteri.c	\
 
 OBJS_MAND = ${SRCS_MAND:.c=.o}
+
+BONUS = ft_lstnew_bonus.c \
+		 ft_lstadd_front_bonus.c \
+		 ft_lstsize_bonus.c \
+		 ft_lstlast_bonus.c \
+		 ft_lstadd_back_bonus.c \
+		 ft_lstdelone_bonus.c \
+		 ft_lstclear_bonus.c \
+		 ft_lstiter_bonus.c \
+		 ft_lstmap_bonus.c \
+
+BONUS_OBJ = $(BONUS:.c=.o)
+
 CC = gcc
 RM = rm -rf
 AR = ar rcs
@@ -57,18 +70,22 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):	$(OBJS_MAND)
-	$(AR) $(NAME) $(OBJS_MAND)
-	$(RANLIB) $(NAME)
+	ar -rcs $(NAME) $(OBJS_MAND)
+	@echo "$(NAME) created"
 
 %.o: %.c
 	$(CC) -c $< -o $@
 
 clean:
 	rm -f $(OBJS_MAND)
+	@echo "OBJ deleted"
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+bonus: $(NAME) $(BONUS_OBJ)
+	ar -rcs $(NAME) $(BONUS_OBJ)
 
 .PHONY: all clean fclean re
